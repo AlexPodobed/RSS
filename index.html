@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <script src="libs/jquery-1.11.1.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/mustache/mustache.js"></script>
+</head>
+<body>
+    <div class="container rss-wrapper">
+        <div class="row">
+            <div class="col-md-3">
+                <ul class=" list-group" role="tablist" id="menu">
+                    <li class="list-group-item">
+                        <a href="#CNN" data-rss="CNN"  role="tab" data-toggle="tab">CNN</a>
+                        <span class="glyphicon glyphicon-refresh refresh-rss pull-right"></span>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#HackerNews" data-rss="Hacker News" role="tab" data-toggle="tab">Hacker News</a>
+                        <span class="glyphicon glyphicon-refresh refresh-rss pull-right"></span>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#Mashable" data-rss="Mashable" role="tab" data-toggle="tab">Mashable</a>
+                        <span class="glyphicon glyphicon-refresh refresh-rss pull-right"></span>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#HuffingtonPost" data-rss="Huffington Post" role="tab" data-toggle="tab">Huffington Post</a>
+                        <span class="glyphicon glyphicon-refresh refresh-rss pull-right"></span>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#TechCrunch" data-rss="TechCrunch" role="tab" data-toggle="tab">TechCrunch</a>
+                        <span class="glyphicon glyphicon-refresh refresh-rss pull-right"></span>
+
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-9">
+                <div class="tab-content" id="viewport">
+                    <div class="tab-pane fade" id="CNN"></div>
+                    <div class="tab-pane fade" id="HackerNews"></div>
+                    <div class="tab-pane fade" id="Mashable"></div>
+                    <div class="tab-pane fade" id="HuffingtonPost"></div>
+                    <div class="tab-pane fade" id="TechCrunch"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+<script src="core.js"></script>
+<!-----------   T E M P L A T E S -------------->
+    <script id="CNN_template" type="x-tmpl-mustache">
+         <div class="CNN-wrapper">
+            <div class="heading">
+                <h3 class="text-center">
+                    {{title}}
+                </h3>
+                <h4>
+                    <a href="{{link}}"> {{description}} </a>
+
+                </h4>
+            </div>
+            <div class="content">
+                <div class="viewport">
+                    <ul>
+                        {{#entries}}
+                            <li>{{{content}}}</li>
+                        {{/entries}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script id="Hacker_template" type="x-tmpl-mustache">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <a href="{{link}}" target="_blank">{{title}}</a>
+            </div>
+            <div class="panel-body">
+                <div class="viewport">
+                    <ul>
+                        {{#entries}}
+                        <li>
+                            <h4>{{title}}</h4>
+                            <span> see it on the <a href="{{link}}" target="_blank">link</a></span>
+                        </li>
+                        {{/entries}}
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </script>
+
+    <script id="Mashable_template" type="x-tmpl-mustache">
+         <div class="Mashable-wrapper">
+            <div class="heading">
+               <a href="{{link}}" target="_blank"><h2>{{title}}</h2></a>
+                <small>{{description}}</small>
+            </div>
+            <div class="content">
+                <div class="viewport">
+                    <ul>
+                        {{#entries}}
+                            <li>
+                                  <h4><a href="{{link}}" target="_blank">{{title}}</a></h4>
+                                {{{content}}}
+                                <div class="clearfix"></div>
+                            </li>
+                        {{/entries}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </script>
+
+
+
+
+
+
+
+    <script id="Huffington_template" type="x-tmpl-mustache">
+       <div class="HuffingtonPost-wrapper">
+            <div class="page-header">
+                <h1><a href="{{link}}">{{title}}</a></h1>
+            </div>
+            <div class="content">
+                <div class="row">
+                    {{#entries}}
+                            {{increaseIndex}}
+                        <div class="col-md-4 col-sm-6  news-item">
+                            <div class="short-description-wrapper">
+                                <a href="{{link}}" target="_blank">{{contentSnippet}}</a>
+                                <p class="text-right see-more">
+                                    <button class="btn btn-xs btn-success" data-toggle="modal" data-target="#myModal{{getIndex}}">Show More</button>
+                                </p>
+                            </div>
+                            <!-- Modal -->
+                            <div class="modal fade" id="myModal{{getIndex}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">{{title}}</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            {{{content}}}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary"><a href="{{link}}" target="_blank">See More</a></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    {{/entries}}
+                </div>
+            </div>
+        </div>
+    </script>
+
+
+    <script id="TechCrunch_template" type="x-tmpl-mustache">
+  <div class="techCrunch-wrapper">
+        <div class="heading">
+            <h1>{{title}}</h1>
+            <h4><a href="{{link}}">{{description}}</a></h4>
+        </div>
+        <div class="content">
+            <div class="row">
+                {{#entries}}
+                    {{increaseIndex}}
+                    <div class="col-md-6 news-item">
+                        <div class="news-wrapper">
+                            <h4><a href="{{link}}">{{title}}</a></h4>
+                            <p>
+                                {{#categories}}
+                                   <span class="label label-info"> {{.}} </span>
+                                {{/categories}}
+                            </p>
+                            {{{content}}}
+                        </div>
+                    </div>
+                    {{{clearFix}}}
+                {{/entries}}
+            </div>
+        </div>
+    </div>
+
+    </script>
+</body>
+</html>
