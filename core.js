@@ -121,28 +121,6 @@ ViewMaker.TechCrunch = function() {
     this.templateId = 'TechCrunch_template';
 };
 
-
-/*function RSSBridgeCreate(e){
-    e.preventDefault();
-    var $currentLink = $(this),
-        rssName = $currentLink.data('rss'),
-        rss = new RSS(rssName);
-
-    $currentLink.parent().find('.active').removeClass('active');
-    $currentLink.addClass('active');
-    rss.init();
-};
-
-function RSSBridgeRefresh(){
-
-}
-
-$('#menu').on('click', 'a', RSSBridgeCreate);
-$('#menu').on('click', '.refresh', RSSBridgeRefresh);*/
-
-
-//$('#menu').on('click', 'li', RSSBridgeCreate);
-
 $('#menu').on('click', 'li', function(e){
     var name = $(this).find('a').data('rss'),
         rss = new RSS(name);
