@@ -1,4 +1,3 @@
-
 // CONSTANTS
 var _API = 'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=';
 var _RSS_LIST = {
@@ -123,11 +122,13 @@ ViewMaker.TechCrunch = function() {
 
 $('#menu').on('click', 'li', function(e){
     var name = $(this).find('a').data('rss'),
-        rss = new RSS(name);
+        rss;
 
     if(e.target.tagName ==='A'){
+        rss = new RSS(name);
         rss.init();
     }else if(e.target.tagName ==='SPAN'){
+        rss = new RSS(name);
         rss.refresh();
     }
 });
